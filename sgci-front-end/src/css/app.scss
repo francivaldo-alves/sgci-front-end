@@ -1,1 +1,54 @@
-// app global css in SCSS form
+
+.main-container {
+  padding: 0px 40px 22px;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.bg {
+  width: 100%;
+  padding: 0  3em 3em 3em;
+  background-color: #e9ecef;
+}
+
+.title {
+  font-size: 29px;
+}
+.subtitulo {
+  font-size: 18px;
+  margin-bottom: -2px;
+
+}
+
+.divisor-inline {
+  border-bottom: solid #000000;
+  border-width: thin;
+  opacity: 0.2;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-cadastrar {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background-color: #1976d2;
+  min-width: 150px;
+  border-radius: 8px;
+}
+
+
+.btn-voltar {
+  font-size: 15px;
+  font-weight: bold;
+  height: 40px;
+  color: #000000;
+  background-color: #dddddd;
+  min-width: 150px;
+  margin-right: 10px;
+  border-radius: 8px;
+
+}

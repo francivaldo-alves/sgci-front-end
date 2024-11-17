@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          SGCI - Sistema Gerenciador de Cadastro Imobiliário
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -28,7 +28,7 @@
         <q-item-label
           header
         >
-          Essential Links
+          Menu
         </q-item-label>
 
         <EssentialLink
@@ -55,47 +55,26 @@ defineOptions({
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
+    title: 'Gerenciar Pessoas',
+    caption: 'Físicas e Jurídicas',
+    icon: 'group',
     link: 'https://quasar.dev'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Gerenciar Imóveis',
+    caption: 'Rurais e Urbanos',
+    icon: 'other_houses',
+    link: 'https://github.com/quasarframework',
+    disable: true
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'Gerenciar Acesso',
+    caption: 'Usuários e Perfis',
+    icon: 'manage_accounts',
+    link: 'https://chat.quasar.dev',
+    disable: true
   }
+
 ]
 
 const leftDrawerOpen = ref(false)
