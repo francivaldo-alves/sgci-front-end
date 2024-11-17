@@ -1,11 +1,11 @@
 <template>
   <div>
-    <q-form ref='formPessoa' @submit='cadastrar' class="bg">
+    <q-form ref='formPessoa' @submit='cadastrarOuAtualizar' class="bg">
       <div class="bg"></div>
       <div class="main-container">
         <div class="q-mb-md">
 
-          <h4 class="title">Cadatrar Pessoa</h4>
+          <h4 class="title">{{ pessoa.id ? 'Editar ' : ' Cadastrar ' }} Pessoa</h4>
 
           <div class="divisor-inline"></div>
         </div>
@@ -17,23 +17,24 @@
           <!--Campos-->
           <div class="row q-col-gutter-x-lg">
             <div class="col-7">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.nome"
+              <q-input :rules="[vRequired]" v-model="pessoa.nome"
                 label="Nome" dense />
             </div>
             <div class="col-2">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.documento"
+              <q-input :rules="[vRequired]" v-model="pessoa.documento"
                 label="Documento" dense />
             </div>
             <div class="col-3">
               <q-input v-model="pessoa.profissao"
-               :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']"
+               :rules="[vRequired]"
                 label="Profissão" dense />
             </div>
           </div>
 
           <div class="row q-col-gutter-lg" style="margin-top: -15px">
             <div class="col-7">
-              <q-field ref="tipoPessoa" dense :model-value="pessoa.tipo" :rules="[vRequired]"
+              <q-field ref="tipoPessoa" dense :model-value="pessoa.tipo"
+               :rules="[vRequired]"
               label="Tipo de Pessoa" lazy-rules borderless stack-label>
                 <template v-slot:control>
                   <q-option-group v-model="pessoa.tipo" :options="optionsTipoPessoa" type="radio" size="xs" inline />
@@ -59,32 +60,32 @@
           <!--Campos-->
           <div class="row q-col-gutter-x-lg">
             <div class="col-3">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.endereco.estado"
+              <q-input :rules="[vRequired]" v-model="pessoa.endereco.estado"
                 label="Estado" dense />
             </div>
 
             <div class="col-3">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.endereco.cep"
+              <q-input :rules="[vRequired]" v-model="pessoa.endereco.cep"
                 label="CEP" dense />
             </div>
 
             <div class="col-3">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.endereco.cidade"
+              <q-input :rules="[vRequired]" v-model="pessoa.endereco.cidade"
                 label="Cidade" dense />
             </div>
 
             <div class="col-3">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.endereco.bairro"
+              <q-input :rules="[vRequired]" v-model="pessoa.endereco.bairro"
                 label="Bairro" dense />
             </div>
 
             <div class="col-5">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.endereco.rua"
+              <q-input :rules="[vRequired]" v-model="pessoa.endereco.rua"
                 label="Rua" dense />
             </div>
 
             <div class="col-1">
-              <q-input :rules="[val => !(val == null || val == '') || 'Campo Obrigatório']" v-model="pessoa.endereco.numero"
+              <q-input :rules="[vRequired]" v-model="pessoa.endereco.numero"
                 label="Número" dense />
             </div>
           </div>
@@ -95,7 +96,7 @@
           <div class="col-12">
             <div style="float: right;">
               <q-btn label="Voltar" no-caps class="btn-voltar" />
-              <q-btn type="cadastrar" label="Cadastrar" no-caps class="btn-cadastrar" />
+              <q-btn type="cadastrar" :label="pessoa.id ? 'Salvar' : 'Cadastrar'" no-caps class="btn-cadastrar" />
             </div>
           </div>
         </div>
@@ -155,8 +156,31 @@ export default {
       ]
     }
   },
+  watch: {
+    'pessoa.tipo': {
+      handler () {
+        this.$refs.tipoPessoa.resetValidation()
+      }
+    }
+  },
+  mounted () {
+    this.buscarPessoaParaEdicao()
+  },
   methods: {
-    cadastrar () {
+    buscarPessoaParaEdicao () {
+      if (!this.$route.params.id) return
+      pessoaService.getById(this.$route.params.id).then(retorno => {
+        this.pessoa = retorno.data
+      })
+    },
+
+    cadastrarOuAtualizar () {
+      if (this.pessoa.id) {
+        pessoaService.update(this.pessoa.id, this.pessoa).then(resposta => {
+          alert('Editou a pessoa com sucesso')
+        })
+        return
+      }
       pessoaService.create(this.pessoa).then(Response => {
         console.log('Cadsttrou a pessoa com sucesso')
       })

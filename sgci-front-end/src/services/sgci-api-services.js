@@ -10,6 +10,14 @@ export class PessoaService {
   create (pessoa) {
     return apiSgci.post(this.path, pessoa)
   }
+
+  getById (id) {
+    return apiSgci.get(this.path + '/' + id)
+  }
+
+  update (id, pessoa) {
+    return apiSgci.put(this.path + '/' + id, pessoa)
+  }
 }
 
 export const pessoaService = new PessoaService()

@@ -3,7 +3,10 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
+      { path: 'pessoas', component: () => import('pages/pessoas/CreateEditPessoa.vue') },
       { path: 'pessoas/form', component: () => import('pages/pessoas/CreateEditPessoa.vue') },
+      { path: 'pessoas/form/:id', component: () => import('pages/pessoas/CreateEditPessoa.vue') },
+      { path: 'pessoas/view/:id', component: () => import('pages/pessoas/ViewPessoa.vue') },
       { path: '', component: () => import('pages/IndexPage.vue') }
     ]
   },
